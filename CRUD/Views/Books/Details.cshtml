@@ -1,0 +1,48 @@
+﻿@model CRUD.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            Author
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt>
+            Category
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt>
+           Number of loans
+        </dt>
+        <dd>
+            <table class="table">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Borrows)
+                        </td>
+                    </tr>
+            </table>
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <form>
+        <button asp-action="Edit" asp-route-id="@Model.ID" class="btn-warning">Edit</button> |
+        <button asp-action="Index" class="btn-info">Back to List</button>
+    </form>
+</div>

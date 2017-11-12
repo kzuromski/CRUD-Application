@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CRUD.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>List of books in our library</h2>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParam"]">Title</a> 
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParam"]">Author</a> 
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CategorySortParam"]">Category</a> 
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                <form>
+                    <button asp-action="Edit" asp-route-id="@item.ID" class="btn-warning">Edit</button> |
+                    <button asp-action="Details" asp-route-id="@item.ID" class="btn-primary">Details</button> |
+                    <button asp-action="Delete" asp-route-id="@item.ID" class="btn-danger">Delete</button>
+                </form>
+    
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<form>
+    <button asp-action="Create" class="btn-success">Create New</button>
+</form>
