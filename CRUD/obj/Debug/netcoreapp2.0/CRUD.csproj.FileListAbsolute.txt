@@ -1,0 +1,11 @@
+E:\CSHARP\CRUD\CRUD\bin\Debug\netcoreapp2.0\CRUD.deps.json
+E:\CSHARP\CRUD\CRUD\bin\Debug\netcoreapp2.0\CRUD.runtimeconfig.json
+E:\CSHARP\CRUD\CRUD\bin\Debug\netcoreapp2.0\CRUD.runtimeconfig.dev.json
+E:\CSHARP\CRUD\CRUD\bin\Debug\netcoreapp2.0\CRUD.dll
+E:\CSHARP\CRUD\CRUD\bin\Debug\netcoreapp2.0\CRUD.pdb
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.csprojResolveAssemblyReference.cache
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.csproj.CoreCompileInputs.cache
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.AssemblyInfoInputs.cache
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.AssemblyInfo.cs
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.dll
+E:\CSHARP\CRUD\CRUD\obj\Debug\netcoreapp2.0\CRUD.pdb

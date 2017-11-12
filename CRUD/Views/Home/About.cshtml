@@ -1,0 +1,30 @@
+﻿@model IEnumerable<CRUD.Models.LibraryViewModels.BorrowDateGroup>
+
+    @{
+        ViewData["Title"] = "Readers statistics";
+    }
+
+    <h2>Readers statisics</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                Borrow Date
+            </th>
+            <th>
+                Readers
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BorrowDate)
+                </td>
+                <td>
+                    @item.ReaderCount
+                </td>
+            </tr>
+        }
+    </table>

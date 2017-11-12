@@ -1,0 +1,76 @@
+﻿@model PaginatedList<CRUD.Models.Reader>
+
+@{
+    ViewData["Title"] = "Readers";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Index" method="get">
+   <div class="form-actions no-color">
+       <p>Find by name: </p><input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+       <input type="submit" name="name" value="Search" class="btn-info" />
+       | <button asp-action="Index" class="btn-info"> Display full list</button>
+       | <button asp-action="Create" class="btn-success">Create New</button>
+   </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                   <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">FirstName</a> 
+                </th>
+                <th>
+                    LastName
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParam"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Borrow Date</a> 
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BorrowDate)
+            </td>
+            <td>
+                <form>
+                    <button asp-action="Edit" asp-route-id="@item.ID" class="btn-warning">Edit</button> |
+                    <button asp-action="Details" asp-route-id="@item.ID" class="btn-primary">Details</button> |
+                    <button asp-action="Delete" asp-route-id="@item.ID" class="btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-page="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+    
+
