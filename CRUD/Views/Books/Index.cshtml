@@ -4,18 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>List of books in our library</h2>
+<h2>Index</h2>
+
+<p>
+    <form>
+        <button asp-action="Create" class="btn-success">Add book</button>
+    </form>
+</p>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParam"]">Title</a> 
+                    @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AuthorSortParam"]">Author</a> 
+                    @Html.DisplayNameFor(model => model.Author)
                 </th>
                 <th>
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CategorySortParam"]">Category</a> 
+                    @Html.DisplayNameFor(model => model.Category)
                 </th>
             <th></th>
         </tr>
@@ -33,17 +39,11 @@
                 @Html.DisplayFor(modelItem => item.Category)
             </td>
             <td>
-                <form>
-                    <button asp-action="Edit" asp-route-id="@item.ID" class="btn-warning">Edit</button> |
-                    <button asp-action="Details" asp-route-id="@item.ID" class="btn-primary">Details</button> |
-                    <button asp-action="Delete" asp-route-id="@item.ID" class="btn-danger">Delete</button>
-                </form>
-    
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-<form>
-    <button asp-action="Create" class="btn-success">Create New</button>
-</form>

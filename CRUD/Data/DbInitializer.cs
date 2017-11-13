@@ -17,8 +17,8 @@ namespace CRUD.Data
             }
             var readers = new Reader[]
             {
-                new Reader{FirstName="Lewis", LastName="Hamilton", BorrowDate=DateTime.Parse("02-08-2017")},
-                new Reader{FirstName="23", LastName="32ton", BorrowDate=DateTime.Parse("02-02-2017")}
+                new Reader{FirstName="Lewis", LastName="Hamilton"},
+                new Reader{FirstName="23", LastName="32ton"}
             };
             foreach (Reader r in readers)
             {
@@ -27,8 +27,8 @@ namespace CRUD.Data
             context.SaveChanges();
             var books = new Book[]
             {
-                new Book{ID=1, Author="Nothing by Nothing", Title="Still Nothing", Category="Drama"},
-                new Book{ID=2, Author="Nothing", Title="Stig", Category="Okon"}
+                new Book{Author="Nothing by Nothing", Title="Still Nothing", Category="Drama"},
+                new Book{Author="Nothing", Title="Stig", Category="Okon"}
             };
             foreach (Book b in books)
             {
@@ -37,8 +37,8 @@ namespace CRUD.Data
             context.SaveChanges();
             var borrows = new Borrow[]
             {
-                new Borrow{BookID=1, ReaderID=1 },
-                new Borrow{BookID=2, ReaderID= 1}
+                new Borrow{BookID=1, ReaderID=1 , BorrowDate=DateTime.Parse("02-02-2017")},
+                new Borrow{BookID=2, ReaderID=1,  BorrowDate=DateTime.Parse("02-03-2017")}
             };
             foreach(Borrow b in borrows)
             {

@@ -27,7 +27,6 @@ namespace CRUD.Controllers
         {
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewData["DateSortParam"] = sortOrder == "Date" ? "date_desc" : "Date";
             var readers = from r in _context.Readers
                           select r;
 
@@ -52,15 +51,6 @@ namespace CRUD.Controllers
                 case "name_desc":
                     readers = readers.OrderByDescending(r => r.LastName);
                     break;
-
-                case "Date":
-                    readers = readers.OrderBy(r => r.BorrowDate);
-                    break;
-
-                case "date_desc":
-                    readers = readers.OrderByDescending(r => r.BorrowDate);
-                    break;
-
                 default:
                     readers = readers.OrderBy(r => r.LastName);
                     break;
@@ -70,7 +60,7 @@ namespace CRUD.Controllers
         }
 
         // GET: Readers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, String sortOrder)
         {
             if (id == null)
             {
@@ -87,7 +77,6 @@ namespace CRUD.Controllers
             {
                 return NotFound();
             }
-
             return View(reader);
         }
 
@@ -108,7 +97,6 @@ namespace CRUD.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     _context.Add(reader);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -152,7 +140,7 @@ namespace CRUD.Controllers
             if (await TryUpdateModelAsync<Reader>(
                 readerToUpdate,
                 "",
-                r => r.FirstName, r => r.LastName, r => r.BorrowDate))
+                r => r.FirstName, r => r.LastName))
             {
                 try
                 {

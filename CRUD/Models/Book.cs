@@ -8,7 +8,6 @@ namespace CRUD.Models
 {
     public class Book
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ID { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }

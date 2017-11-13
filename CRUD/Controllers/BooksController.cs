@@ -20,29 +20,9 @@ namespace CRUD.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index()
         {
-            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
-            ViewData["AuthorSortParm"] = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
-            ViewData["CategorySortParm"] = String.IsNullOrEmpty(sortOrder) ? "category_desc" : "";
-            var books = from b in _context.Books
-                           select b;
-            switch (sortOrder)
-            {
-                case "title_desc":
-                    books = books.OrderByDescending(b => b.Title);
-                    break;
-                case "author_desc":
-                    books = books.OrderBy(b => b.Author);
-                    break;
-                case "category_desc":
-                   books = books.OrderByDescending(b => b.Category);
-                    break;
-                default:
-                    books = books.OrderBy(b => b.Title);
-                    break;
-            }
-            return View(await books.AsNoTracking().ToListAsync());
+            return View(await _context.Books.ToListAsync());
         }
 
         // GET: Books/Details/5
@@ -54,9 +34,6 @@ namespace CRUD.Controllers
             }
 
             var book = await _context.Books
-                .Include(b=>b.Borrows)
-                 .ThenInclude(b=>b.Reader)
-                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (book == null)
             {
@@ -90,8 +67,9 @@ namespace CRUD.Controllers
             }
             catch (DbUpdateException /*ex*/)
             {
-                ModelState.AddModelError("", "Unable to save change");
+                ModelState.AddModelError("", "Unable to create book");
             }
+            
             return View(book);
         }
 
@@ -114,7 +92,7 @@ namespace CRUD.Controllers
         // POST: Books/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int? id)
         {
@@ -123,10 +101,7 @@ namespace CRUD.Controllers
                 return NotFound();
             }
             var bookToUpdate = await _context.Books.SingleOrDefaultAsync(b => b.ID == id);
-            if (await TryUpdateModelAsync<Book>(
-                bookToUpdate,
-                "",
-                b => b.Author, b => b.Title, b => b.Category))
+            if(await TryUpdateModelAsync<Book>( bookToUpdate, "",b => b.Title, b => b.Author, b => b.Category))
             {
                 try
                 {
@@ -135,9 +110,10 @@ namespace CRUD.Controllers
                 }
                 catch (DbUpdateException /*ex*/)
                 {
-                    ModelState.AddModelError("", "Unable to save changes");
+                    ModelState.AddModelError("", "Unable to edit book.");
                 }
             }
+
             return View(bookToUpdate);
         }
 
@@ -151,12 +127,11 @@ namespace CRUD.Controllers
 
             var book = await _context.Books
                 .AsNoTracking()
-                .SingleOrDefaultAsync(b => b.ID == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
             if (book == null)
             {
                 return NotFound();
             }
-
             if (saveChangesError.GetValueOrDefault())
             {
                 ViewData["ErrorMessage"] = "Delete failed.";
@@ -171,9 +146,9 @@ namespace CRUD.Controllers
         {
             var book = await _context.Books
                 .AsNoTracking()
-                .SingleOrDefaultAsync(b => b.ID == id);
+                .SingleOrDefaultAsync(m => m.ID == id);
 
-            if(book == null)
+            if (book == null)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -183,7 +158,7 @@ namespace CRUD.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch(DbUpdateException /*ex*/)
+            catch (DbUpdateException /*ex*/)
             {
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }

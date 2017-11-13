@@ -28,8 +28,8 @@ namespace CRUD.Controllers
         public async Task<ActionResult> About()
         {
             IQueryable<BorrowDateGroup> data =
-                 from reader in _context.Readers
-                 group reader by reader.BorrowDate into dateGroup
+                 from borrow in _context.Borrows
+                 group borrow by borrow.BorrowDate into dateGroup
                  select new BorrowDateGroup()
                  {
                      BorrowDate = dateGroup.Key,

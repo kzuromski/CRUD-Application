@@ -10,8 +10,6 @@ namespace CRUD.Models
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        public DateTime BorrowDate { get; set; }
         public ICollection<Borrow> Borrows { get; set; }
     }
 }
