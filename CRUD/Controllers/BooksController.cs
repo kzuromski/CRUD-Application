@@ -20,9 +20,30 @@ namespace CRUD.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String sortOrder)
         {
-            return View(await _context.Books.ToListAsync());
+            ViewData["TitleSortParam"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewData["AuthorSortParam"] = String.IsNullOrEmpty(sortOrder) ? "author_desc" : "";
+            ViewData["CategorySortParam"] = String.IsNullOrEmpty(sortOrder) ? "category" : "";
+            var books = from b in _context.Books
+                        select b;
+
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    books = books.OrderByDescending(b => b.Title);
+                    break;
+                case "author_desc":
+                    books = books.OrderByDescending(b => b.Author);
+                    break;
+                case "category":
+                    books = books.OrderBy(b => b.Category);
+                    break;
+                default:
+                    books = books.OrderBy(b => b.Title);
+                    break;
+            }
+            return View(await books.AsNoTracking().ToListAsync());
         }
 
         // GET: Books/Details/5

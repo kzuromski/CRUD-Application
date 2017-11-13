@@ -17,8 +17,8 @@ namespace CRUD.Data
             }
             var readers = new Reader[]
             {
-                new Reader{FirstName="Lewis", LastName="Hamilton"},
-                new Reader{FirstName="23", LastName="32ton"}
+                new Reader{FirstName="Sample A", LastName="Sample A"},
+                new Reader{FirstName="Sample B", LastName="Sample B"}
             };
             foreach (Reader r in readers)
             {
@@ -27,8 +27,8 @@ namespace CRUD.Data
             context.SaveChanges();
             var books = new Book[]
             {
-                new Book{Author="Nothing by Nothing", Title="Still Nothing", Category="Drama"},
-                new Book{Author="Nothing", Title="Stig", Category="Okon"}
+                new Book{Author="Sample C", Title="Sample C", Category="Sample C"},
+                new Book{Author="Sample D", Title="Sample D", Category="Sample D"}
             };
             foreach (Book b in books)
             {
