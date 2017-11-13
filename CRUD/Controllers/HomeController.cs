@@ -25,7 +25,7 @@ namespace CRUD.Controllers
             return View();
         }
 
-        public async Task<ActionResult> About()
+        public async Task<ActionResult> Statistics()
         {
             IQueryable<BorrowDateGroup> data =
                  from borrow in _context.Borrows

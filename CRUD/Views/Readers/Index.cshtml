@@ -4,14 +4,14 @@
     ViewData["Title"] = "Readers";
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2>List of readers</h2>
 
 <form asp-action="Index" method="get">
    <div class="form-actions no-color">
-       <p>Find by name: </p><input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
-       <input type="submit" name="name" value="Search" class="btn-info" />
-       | <button asp-action="Index" class="btn-info"> Display full list</button>
-       | <button asp-action="Create" class="btn-success">Add reader</button>
+       <p>Find by last name: </p><input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+       | <input type="submit" name="name" value="Search" class="btn btn-info" />
+       | <a asp-action="Index" class="btn btn-info"> Display full list</a>
+       | <a asp-action="Create" class="btn btn-success">Add reader</a>
    </div>
 </form>
 
@@ -37,11 +37,9 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                <form>
-                    <button asp-action="Edit" asp-route-id="@item.ID" class="btn-warning">Edit</button> |
-                    <button asp-action="Details" asp-route-id="@item.ID" class="btn-primary">Details</button> |
-                    <button asp-action="Delete" asp-route-id="@item.ID" class="btn-danger">Delete</button>
-                </form>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
