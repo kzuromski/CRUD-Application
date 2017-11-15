@@ -25,8 +25,10 @@ namespace CRUD.Controllers
             return View();
         }
 
-        public async Task<ActionResult> Statistics()
+        public async Task<ActionResult> Statistics(String sortOrder)
         {
+            ViewData["DateSortParam"] = ViewData["DateSortParam"] = sortOrder == "date" ? "date_desc" : "date";
+
             IQueryable<BorrowDateGroup> data =
                  from borrow in _context.Borrows
                  group borrow by borrow.BorrowDate into dateGroup
@@ -35,6 +37,17 @@ namespace CRUD.Controllers
                      BorrowDate = dateGroup.Key,
                      ReaderCount = dateGroup.Count()
                  };
+
+            switch (sortOrder)
+            {
+                case "date_desc":
+                   data = data.OrderByDescending(b => b.BorrowDate);
+                    break;
+
+                default:
+                    data = data.OrderBy(b => b.BorrowDate);
+                    break;
+            }
             return View(await data.AsNoTracking().ToListAsync());
         }
 

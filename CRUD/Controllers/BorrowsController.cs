@@ -31,9 +31,7 @@ namespace CRUD.Controllers
                 case "date_desc":
                     borrows = borrows.OrderByDescending(b => b.BorrowDate);
                     break;
-                case "date":
-                    borrows = borrows.OrderBy(b => b.BorrowDate);
-                    break;
+
                 default:
                     borrows = borrows.OrderBy(b => b.BorrowDate);
                     break;

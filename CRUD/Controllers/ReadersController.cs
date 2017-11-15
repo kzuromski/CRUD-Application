@@ -26,7 +26,8 @@ namespace CRUD.Controllers
             int? page)
         {
             ViewData["CurrentSort"] = sortOrder;
-            ViewData["NameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["FirstNameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "firstName_desc" : "";
+            ViewData["LastNameSortParam"] = String.IsNullOrEmpty(sortOrder) ? "lastName_desc" : "";
             var readers = from r in _context.Readers
                           select r;
 
@@ -48,7 +49,10 @@ namespace CRUD.Controllers
             }
             switch (sortOrder)
             {
-                case "name_desc":
+                case "firstName_desc":
+                    readers = readers.OrderByDescending(r => r.FirstName);
+                    break;
+                case "lastName_desc":
                     readers = readers.OrderByDescending(r => r.LastName);
                     break;
                 default:

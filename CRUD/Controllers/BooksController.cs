@@ -37,7 +37,7 @@ namespace CRUD.Controllers
                     books = books.OrderByDescending(b => b.Author);
                     break;
                 case "category":
-                    books = books.OrderBy(b => b.Category);
+                    books = books.OrderByDescending(b => b.Category);
                     break;
                 default:
                     books = books.OrderBy(b => b.Title);
